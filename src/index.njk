@@ -1,0 +1,47 @@
+---
+title: All about myself
+tags:
+layout: base
+---
+
+<section id="deck">
+	{% set years = collections.years | eleventyNavigation %}
+	{%- for entry in years %}
+	<article>
+		<div class="devider">
+			<h3>{{ entry.title }}</h3>
+			<div class="preview">
+				{%- for image in gallery.images | byYear(entry.key) | limit(5) -%}
+				<div>
+					<a href="/{{- image.date.getFullYear() -}}/#{{ image.name | trimExtension | slugify }}">
+					{% picture image.src, image.description, "30vw, 20vh" %}
+					</a>
+				</div>
+				{%- endfor -%}
+			</div>
+		</div>
+	</article>
+	{%- endfor %}
+
+	<article>
+		<div class="devider">
+			<h3>Random image</h3>
+		</div>
+	</article>
+
+	{%- set image = gallery.images | random -%}
+	<article id="{{ image.name | trimExtension | slugify }}" style="--width:{{ image.size.width }}; --height:{{ image.size.height }};">
+		<div>
+			<a href="/{{- image.date.getFullYear() -}}/#{{ image.name | trimExtension | slugify }}">
+				{% picture image.src, image.description, "100vw, 100vh" %}
+			</a>
+			<details>F{{ image.photo.fNumber }} {{ image.photo.focalLength }}mm</details>
+		</div>
+	</article>
+
+	<article>
+	<div class="devider">
+		<h3>Ende!</h3>
+	</div>
+	</article>
+</section>

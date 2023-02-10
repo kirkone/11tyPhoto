@@ -1,0 +1,57 @@
+@use '../abstracts/variables';
+
+input.darkmode-input {
+    position: fixed;
+    clip: rect(0,0,0,0);
+    height: 0;
+    width: 0;
+}
+
+label.darkmode-label {
+    position: fixed;
+    bottom: 15px;
+    left: 15px;
+    height: 30px;
+    width: 30px;
+    z-index: 199;
+
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+
+    color: var(--foregroundcolor-lighter);
+
+    transition: all variables.$duration-default variables.$transition-mode;
+
+    .inner{
+        fill: var(--backgroundcolor-light);
+        transition: all variables.$duration-default variables.$transition-mode;
+        transform: translateX(0) translateY(0);
+    }
+
+    svg{
+        width: 100%;
+        height: 100%;
+        fill: currentcolor;
+    }
+}
+
+input.darkmode-input:checked {
+    ~ * label.darkmode-label{
+        .inner{
+            transform: translateX(15%) translateY(-15%) scale(1.15);
+        }
+    }
+
+    ~ *{
+        --backgroundcolor: #{variables.$foregroundcolor};
+        --backgroundcolor-trans: #{variables.$foregroundcolor-trans};
+        --backgroundcolor-light: #{variables.$foregroundcolor-light};
+        --backgroundcolor-lighter: #{variables.$foregroundcolor-lighter};
+    
+        --foregroundcolor: #{variables.$backgroundcolor};
+        --foregroundcolor-light: #{variables.$backgroundcolor-light};
+        --foregroundcolor-lighter: #{variables.$backgroundcolor-lighter};
+
+        --shadow-color: #{variables.$shadow-color-light};
+    }
+}

@@ -1,0 +1,277 @@
+@use '../abstracts/variables';
+@use '../base/typography';
+
+a.nav-skip{
+    position: fixed;
+    top: 0;
+    left: 1rem;
+    transform: translateY(-10rem);
+    transition: transform 0.3s ease-in-out;
+    padding: 0 0.5rem;
+    background: var(--backgroundcolor-light);
+    color: var(--foregroundcolor-light);
+    z-index: 999;
+
+    &:focus {
+        transform: translateY(1rem);
+    }
+}
+
+#nav {
+    position: fixed;
+    z-index: 200;
+    left: variables.$nav-width * -1;
+    top: 0px;
+    bottom: 0px;
+    width: variables.$nav-width;
+    font-size: 0.9em;
+    background-color: var(--backgroundcolor-light);
+
+    transition: transform variables.$duration-default variables.$transition-mode,
+                background-color variables.$duration-default variables.$transition-mode;
+
+    transform: translateX(0);
+
+    flex-direction: row;
+    flex-flow: wrap;
+
+    #searchbox {
+        label {
+            display: none;
+        }
+
+        input {
+            color: var(--backgroundcolor-light);
+            background-color: var(--foregroundcolor-light);
+
+            transition: background-color variables.$duration-default variables.$transition-mode,
+                        color variables.$duration-default variables.$transition-mode;
+
+            border: none;
+            font-size: 1.2em;
+            line-height: variables.$spacer-height;
+            display: inline-block;
+            width: 100%;
+            padding: 0 1rem;
+            border-radius: 0;
+        }
+
+        input[type="search"] {
+            -webkit-appearance: none;
+        }
+    }
+
+    span.devider {
+        width: 100%;
+        height: calc(#{variables.$spacer-height} / 2);
+        display: inline-block;
+    }
+
+    a {
+        padding: 0 1rem;
+        text-decoration: none;
+        color: var(--foregroundcolor);
+        font-size: 1.2em;
+        line-height: variables.$spacer-height;
+        display: inline-block;
+        width: 100%;
+        transition: padding-left variables.$duration-default variables.$transition-mode,
+                    color variables.$duration-default variables.$transition-mode,
+                    background-color variables.$duration-default variables.$transition-mode;
+
+        &::after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 2px;
+            margin: 0 -1.3rem;
+            background-color: var(--foregroundcolor-light);
+            transition: width variables.$duration-default variables.$transition-mode,
+                        background-color variables.$duration-default variables.$transition-mode;
+        }
+
+        &:hover,
+        &.active {
+            &.active {
+                pointer-events: none;
+                cursor: default;
+                font-weight: bold;
+            }
+            background-color: var(--backgroundcolor-lighter);
+            color: var(--foregroundcolor-light);
+            padding-left: 1.3rem;
+
+            &::after {
+                width: 100%;
+            }
+        }
+
+        &.devider {
+            pointer-events: none;
+            cursor: default;
+
+            line-height: 0;
+        }
+    }
+}
+
+.nav-trigger {
+    position: fixed;
+    clip: rect(0, 0, 0, 0);
+}
+
+label[for="nav-trigger"] {
+    position: fixed;
+    left: 15px;
+    top: 15px;
+    z-index: 300;
+    height: 31px;
+    width: 35px;
+    padding-left: 5px;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    filter: drop-shadow(0px 0px 1px var(--backgroundcolor));
+    transition: transform variables.$duration-default variables.$transition-mode;
+
+    * {
+        transition: transform variables.$duration-default variables.$transition-mode,
+            opacity variables.$duration-default variables.$transition-mode,
+            margin variables.$duration-default variables.$transition-mode;
+        box-sizing: border-box;
+    }
+
+    &:hover i {
+        background-color: var(--foregroundcolor-light);
+    }
+
+    i {
+        display: block;
+        position: absolute;
+        height: 3px;
+        width: 25px;
+        background-color: var(--foregroundcolor);
+        transition: background-color variables.$duration-default variables.$transition-mode;
+
+        &:nth-child(1) {
+            top: 6px;
+        }
+
+        &:nth-child(2) {
+            top: 14px;
+        }
+
+        &:nth-child(3) {
+            top: 22px;
+        }
+    }
+}
+
+.nav-trigger:has(~ #nav:focus-within),
+.nav-trigger:checked {
+    + label {
+        transform: translateX(variables.$nav-width);
+        > i:nth-child(1) {
+            transform: translateY(-1px) rotate(-135deg);
+            margin-top: 10px;
+        }
+
+        > i:nth-child(2) {
+            opacity: 0;
+        }
+
+        > i:nth-child(3) {
+            transform: translateY(2px) rotate(135deg);
+            margin-top: -12px;
+        }
+    }
+}
+
+#nav:focus-within,
+.nav-trigger:checked ~ #nav {
+    transform: translateX(variables.$nav-width);
+
+}
+
+#nav:focus-within ~ #content::after,
+.nav-trigger:checked ~ #content::after {
+    opacity: 1;
+    pointer-events: unset;
+}
+
+body > a {
+    position: fixed;
+    left: 15px;
+    top: 15px;
+    z-index: 200;
+    height: 30px;
+    line-height: 30px;
+    cursor: pointer;
+    filter: drop-shadow(0px 0px 1px var(--backgroundcolor));
+    text-decoration: none;
+
+    i {
+        display: block;
+        position: absolute;
+        height: 3px;
+        background-color: var(--foregroundcolor);
+        transition: all variables.$duration-default variables.$transition-mode;
+
+        &:nth-child(1) {
+            width: 18px;
+            top: 8px;
+            transform: translateY(-1px) rotate(135deg);
+        }
+
+        &:nth-child(2) {
+            width: 25px;
+            top: 13px;
+            transform: translateX(5px);
+        }
+
+        &:nth-child(3) {
+            width: 18px;
+            top: 20px;
+            transform: translateY(-1px) rotate(-135deg);
+        }
+    }
+
+    &:hover i {
+        background-color: var(--foregroundcolor);
+
+        &:nth-child(1) {
+            width: 25px;
+            top: 15px;
+            transform: translateY(-1px) rotate(-135deg);
+        }
+
+        &:nth-child(2) {
+            opacity: 0;
+            width: 0;
+        }
+
+        &:nth-child(3) {
+            width: 25px;
+            top: 11px;
+            transform: translateY(-1px) rotate(135deg);
+        }
+    }
+
+    span {
+        display: block;
+        transition: opacity variables.$duration-default variables.$transition-mode;
+        color: var(--foregroundcolor);
+        font-size: 1.4em;
+        padding-left: 40px;
+        height: 30px;
+        line-height: 28px;
+        overflow: hidden;
+        opacity: 0;
+    }
+
+    &:hover span {
+        opacity: 1;
+    }
+}

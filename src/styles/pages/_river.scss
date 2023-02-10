@@ -1,0 +1,210 @@
+@use '../abstracts/variables';
+
+#river {
+    /* variables */
+    --gap: 2px;
+    --min-height: 20rem;
+    --image-background: hsla(0, 0%, 0%, 0.2);
+    --last-background: none;
+    --radius: none;
+
+    display: flex;
+    flex-wrap: wrap;
+    grid-gap: var(--gap);
+    margin: 0;
+
+    > article {
+        flex-grow: calc(var(--width) * (100000 / var(--height)));
+        flex-basis: calc(var(--min-height) * (var(--width) / var(--height)));
+        aspect-ratio: var(--width) / var(--height);
+        position: relative;
+        overflow: hidden;
+        
+        border-radius: var(--radius);
+        background-color: var(--image-background);
+        
+        pointer-events: auto;
+        transition: opacity 250ms linear;
+
+        img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        
+        a > picture + details {
+            opacity: 0;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            color: #FFF;
+            text-shadow: 0 0 2px #000;
+            padding: 1em;
+            text-align: left;
+            transition: opacity 250ms linear;
+            z-index:2;
+            
+            & > summary {
+                pointer-events: none;
+                border: none;
+                list-style: none;
+            }
+        }
+        
+        figure {
+            display: none;
+            position: relative;
+        }
+        
+        &:target {
+            figure {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: fixed;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                z-index: 100;
+                
+                background-color: hsla(0, 0%, 0%, 0.85);
+                backdrop-filter: blur(10px);
+                
+                // animation: fadeIn 250ms both;
+
+                > a {
+                    position: absolute;
+                    display: block;
+                    height: 10%;
+                    width: 10%;
+                    text-indent: 100%;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    z-index: 130;
+
+                    &::after {
+                        content: "";
+                        position: fixed;
+                        height: 25px;
+                        width: 25px;
+                        color: var(--foregroundcolor);
+                        cursor: pointer;
+                        z-index: 140;
+                        filter: drop-shadow(0px 0px 1px var(--backgroundcolor));
+                    }
+                }
+                
+                > a[title="previous"] {
+                    
+                    left: 0;
+
+                    &::after {
+                        left: 1vw;
+
+                        border-left: solid 3px var(--foregroundcolor);
+                        border-bottom: solid 3px var(--foregroundcolor);
+
+                        transform: rotate(45deg);
+                    }
+                }
+
+                > a[title="close"] {
+                    position: absolute;
+                    display: block;
+                    height: 100%;
+                    width: 100%;
+                    text-indent: 100%;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    z-index: 110;
+
+                    &::after {
+                        content: "+";
+                        position: fixed;
+                        top: 1rem;
+                        right: 1.5rem;
+                        z-index: 130;
+                        color: hsla(0, 0%, 100%, 1);
+                        cursor: pointer;
+                        font-size: 3rem;
+                        text-indent: 0;
+                        z-index: 140;
+
+                        border-radius: 1rem;
+                        height: 2rem;
+                        line-height: 1.2rem;
+                        overflow: hidden;
+
+                        transform: rotate(45deg);
+                        animation: fadeIn 250ms both;
+                    }
+                }
+                
+                img {
+                    position: relative;
+                    width: auto;
+                    height: auto;
+                    max-width: calc(100vw - 5rem);
+                    max-height: calc(100vh - 5rem);
+                    
+                    animation: fadeIn 500ms both;
+                    box-shadow: 0 0.125rem 1rem rgb(0 0 0 / 24%), 0 0 1rem rgb(0 0 0 / 20%);
+                    z-index: 120;
+                }
+
+                > a[title="next"] {
+                    right: 0;
+
+                    &::after {
+                        right: 1vw;
+
+                        border-right: solid 3px var(--foregroundcolor);
+                        border-bottom: solid 3px var(--foregroundcolor);
+
+                        transform: rotate(-45deg);
+                    }
+                }
+            }
+        }
+        
+        &::after {
+            content: "";
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: 0;
+            bottom: 0 ;
+            left: 0;
+            background: linear-gradient(rgba(0, 0, 0, 0) 0% 80%, rgba(0, 0, 0, 0.501961) 98% 100%);
+            pointer-events: none;
+            transition: opacity 250ms linear;
+            z-index: 1;
+        }
+        
+        &:hover{
+            
+            &::after{
+              opacity: 1;
+            }
+      
+            picture + details{
+              opacity: 1;
+            }
+        }
+    }
+
+    &:after {
+        content: "";
+        flex-grow: 1000000000;
+        background: var(--last-background);
+    }
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; display: none; }
+    1% { display: flex; }
+    100% { opacity: 1; }
+}
+
