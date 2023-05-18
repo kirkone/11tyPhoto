@@ -7,13 +7,14 @@
 @use "./vendors/gg";
 
 @use "./base/reset";
-@use "./base/typography";
 @use "./base/base";
 
+@use "./layout/header";
 @use "./layout/navigation";
+@use "./layout/main";
+@use "./layout/footer";
 
-@use "./components/darkmode";
+@use "./components/river";
+@use "./components/deck";
 
-@use "./pages/images";
-@use "./pages/image";
-@use "./pages/river";
+@use "./pages/about";

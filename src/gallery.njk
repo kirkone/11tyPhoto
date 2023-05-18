@@ -14,20 +14,19 @@ pagination:
 permalink: "{{ year | slug }}/"
 ---
 
+<h1>{{ year }}</h1>
+
 <section id="deck">
-  <article>
-      <div class="devider">
-          <h3>{{ year }}</h3>
-      </div>
-  </article>
 
   {%- for image in gallery.images | byYear(year) -%}
   <article id="{{ image.name | trimExtension | slugify }}" style="--width:{{ image.size.width }}; --height:{{ image.size.height }};">
       <div>
+          <aside>
+              {{ image.photo.focalLength }}mm {{ image.photo.exposureNumerator }}/{{ image.photo.exposureDenominator }} F{{ image.photo.fNumber.toFixed(1) }} ISO {{ image.photo.iso }}
+          </aside>
           <a href="#{{ image.name | trimExtension | slugify }}">
               {% picture image.src, image.description, "100vw, 100vh" %}
           </a>
-          <details>F{{ image.photo.fNumber }} {{ image.photo.focalLength }}mm</details>
       </div>
   </article>
   {%- endfor -%}
@@ -35,15 +34,15 @@ permalink: "{{ year | slug }}/"
   <article>
     <div class="devider">
       <h3>Ende!</h3>
-      <nav aria-labelledby="my-pagination">
-        <ol>
-          <li>{% if pagination.href.previous %}<a href="{{ pagination.href.previous }}">Previous</a>{% else %}Previous{% endif %}</li>
+      <nav aria-labelledby="pagination">
+        {% if pagination.href.previous %}<a href="{{ pagination.href.previous }}">Previous</a>{% endif %}
       {%- for pageEntry in pagination.pages %}
-          <li><a href="{{ pagination.hrefs[ loop.index0 ] }}"{% if page.url == pagination.hrefs[ loop.index0 ] %} aria-current="page"{% endif %}>Page {{ loop.index }}</a></li>
+          <a href="{{ pagination.hrefs[ loop.index0 ] }}"{% if page.url == pagination.hrefs[ loop.index0 ] %} aria-current="page"{% endif %}>Page {{ loop.index }}</a>
       {%- endfor %}
-          <li>{% if pagination.href.next %}<a href="{{ pagination.href.next }}">Next</a>{% else %}Next{% endif %}</li>
-        </ol>
+          {% if pagination.href.next %}<a href="{{ pagination.href.next }}">Next</a>{% endif %}
       </nav>
     </div>
   </article>
+
+
 </section>

@@ -1,0 +1,112 @@
+@use '../abstracts/variables';
+
+#deck {
+    position: relative;
+    display: flex;
+    flex: none;
+    flex-flow: column nowrap;
+    width: auto;
+    min-height: 100%;
+
+    color: hsl(var(--color-hsl));
+
+    article {
+        z-index: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: none;
+
+        background-color: hsl(var(--color-background-hsl));
+        
+        align-items: flex-start;
+
+        -webkit-tap-highlight-color: transparent;
+
+        margin-bottom: max(
+            calc(-100% / (var(--width) / var(--height))),
+            max(-100vh, var(--height) * -1px)
+        );
+
+        &:last-child {
+            height: 100vh;
+
+            div {
+                aspect-ratio: var(--width) / var(--height);
+            }
+        }
+
+        > div {
+            position: relative;
+            width: 150vh;
+            max-width: 100%;
+            max-height: 200vh; 
+            aspect-ratio: var(--width) / calc(var(--height) * 2);
+            display: inline-block;
+
+
+            img {
+                z-index: 2;
+                width: 100%;
+                max-width: 100%;
+                max-height: 100vh;
+                height: auto;
+                object-fit: contain;
+                margin: auto;
+                display: block;
+
+                position: sticky;
+                top: 0;
+                content-visibility: auto;
+
+                padding: 2rem;
+            }
+
+            > aside{
+                position: sticky;
+                left: 0;
+                top: 0;
+                background-color: var(--backgroundcolor-trans);
+                backdrop-filter: blur(10px);
+                font-size: 1em;
+                transform-origin: top left;
+                transform: translatey(6px);
+                height: 0;
+                margin-left: 4rem;
+                font-size: 1.2rem;
+            }
+
+            &.devider {
+                background-color: var(--backgroundcolor-light);
+                transition: color variables.$duration-default variables.$transition-mode,
+                            background-color variables.$duration-default variables.$transition-mode,
+                            border-top-color variables.$duration-default variables.$transition-mode;
+
+                > h3 {
+                    padding: 0 60px;
+                    font-size: 1.1em;
+                    font-weight: normal;
+                    //line-height: variables.$spacer-height;
+                    background-color: var(--backgroundcolor-lighter);
+                    transition: background-color variables.$duration-default variables.$transition-mode;
+                    text-shadow: 0px 0px 1px var(--backgroundcolor);
+
+                    + *{
+                       border-top: variables.$divider-height solid var(--backgroundcolor-light);
+                       transition: border-top-color variables.$duration-default variables.$transition-mode;
+                    }
+                }
+
+                > h2 {
+                    padding: 0 60px 1em 60px;
+                    font-size: 1.1em;
+                    font-weight: normal;
+                }
+
+                > p {
+                    padding: 0 60px .5em 60px;
+                }
+            }
+        }
+    }
+}

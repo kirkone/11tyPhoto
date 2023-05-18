@@ -7,9 +7,20 @@
   <title>{{ title }}</title>
 </head>
 <body>
-  <a href="#content" class="nav-skip">Skip to content</a>
-  {% include "partials/navigation.njk" %}
+  <a href="#content">Skip to content</a>
+
+  <header>
+    <h2>
+      <a href="/">Kirsten Kluge</a>
+    </h2>
+    {% include "partials/navigation.njk" %}
+  </header>
   
-  {{ content | safe }}
+  <main>
+    {{ content | safe }}
+  </main>
+  <footer>
+    © 2023 Kirsten Kluge
+  </footer>
 </body>
 </html>

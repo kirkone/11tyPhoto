@@ -1,17 +1,13 @@
 @use 'typography';
 
-body,
-html {
-    height: 100%;
-    overflow-x: hidden;
-    overscroll-behavior: none ;
-}
-
 body {
     font-family: typography.$font;
     font-weight: 100;
-    font-size: 1.1em;
-
-    color: var(--foregroundcolor);
-    background-color: var(--backgroundcolor);
+    font-size: 1.6rem;
+    margin: 0;
+  
+    background-color: hsl(var(--color-background-hsl));
+    color: hsl(var(--color-hsl));
+      
+    position: relative;
 }

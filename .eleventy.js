@@ -14,44 +14,84 @@ async function getAverageColor(image) {
   return `${values.length < 4 ? "rgb" : "rgba"}(${values.join(",")})`;
 }
 
-async function pictureShortcode(src, alt, sizes = "") {
-    let metadata = await image(src, {
-      widths: [
-        160,
-        320,
-        640,
-        1024,
-        1280,
-        1920,
-        2560,
-        3840,
-        "auto"
-      ],
-      formats: ["avif", "webp", "jpeg"],
-      outputDir: "./output/images/",
-      urlPath: "/images/",
-      cacheOptions: {
-        duration: "10d",
-        directory: ".cache",
-        removeUrlQueryParams: false,
-      }
-    });
+async function pictureShortcode(src, alt, sizes = "100vw") {
+  let metadata = await image(src, {
+    widths: [
+      160,
+      320,
+      640,
+      1024,
+      1280,
+      1920,
+      2560,
+      3840,
+      "auto"
+    ],
+    formats: ["avif", "webp", "jpeg"],
+    outputDir: "./output/images/",
+    urlPath: "/images/",
+    cacheOptions: {
+      duration: "10d",
+      directory: ".cache",
+      removeUrlQueryParams: false,
+    }
+  });
 
-    console.log('---Image-----\n', metadata.jpeg[metadata.jpeg.length - 1].filename);
+  console.log('---Image-----\n', metadata.jpeg[metadata.jpeg.length - 1].filename);
 
-    const color = await getAverageColor(sharp(metadata.jpeg[metadata.jpeg.length - 1].outputPath));
-    const style = `background-color: ${color}`;
+  const color = await getAverageColor(sharp(metadata.jpeg[metadata.jpeg.length - 1].outputPath));
+  const style = `--image-base-color: ${color}`;
 
-    let imageAttributes = {
-      alt,
-      sizes,
-      loading: "lazy",
-      decoding: "async",
-      style
-    };
+  let imageAttributes = {
+    alt,
+    sizes,
+    loading: "lazy",
+    decoding: "async",
+    style
+  };
 
-    // You bet we throw an error on missing alt in `imageAttributes` (alt="" works okay)
-    return image.generateHTML(metadata, imageAttributes, {whitespaceMode: "inline"});
+  // You bet we throw an error on missing alt in `imageAttributes` (alt="" works okay)
+  return image.generateHTML(metadata, imageAttributes, {whitespaceMode: "inline"});
+}
+
+async function pictureSmallShortcode(src, alt) {
+  let metadata = await image(src, {
+    widths: [
+      160,
+      320,
+      640,
+      1024,
+      1280,
+      1920,
+      2560,
+      3840,
+      "auto"
+    ],
+    formats: ["avif", "webp", "jpeg"],
+    outputDir: "./output/images/",
+    urlPath: "/images/",
+    cacheOptions: {
+      duration: "10d",
+      directory: ".cache",
+      removeUrlQueryParams: false,
+    }
+  });
+
+  console.log('---Image-----\n', metadata.jpeg[metadata.jpeg.length - 1].filename);
+
+  const color = await getAverageColor(sharp(metadata.jpeg[metadata.jpeg.length - 1].outputPath));
+  const style = `background-color: ${color}`;
+
+  let imageAttributes = {
+    alt,
+    sizes,
+    loading: "lazy",
+    decoding: "async",
+    style
+  };
+
+  // You bet we throw an error on missing alt in `imageAttributes` (alt="" works okay)
+  return image.generateHTML(metadata, imageAttributes, {whitespaceMode: "inline"});
 }
 
 async function placeholderShortcode(src) {
@@ -124,6 +164,17 @@ module.exports = function (eleventyConfig) {
       const result = images.filter((image) => {return image.date.getFullYear() == year});
 
       return result
+    }
+  );
+  
+  eleventyConfig.addNunjucksFilter(
+    "shuffle",
+    function(images) {
+      return [...images].map( (_, i, copy) => {
+        var rand = i + ( Math.floor( Math.random() * (copy.length - i) ) );
+        [copy[rand], copy[i]] = [copy[i], copy[rand]]
+        return copy[i]
+    });
     }
   );
 

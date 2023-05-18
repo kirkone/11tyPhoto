@@ -1,10 +1,48 @@
 ---
-title: All about myself
+title: Ansichtssachen
 tags:
 layout: base
 ---
 
-<section id="deck">
+<h1>Ansichtssachen</h1>
+<p>
+	“<cite>Ansichtssache</cite>” bedeutet, dass die Bewertung einer Sache nicht auf objektiven Kriterien, sondern auf der eigenen Meinung oder Einschätzung beruht. <br>
+	Es ist ein Begriff, der oft verwendet wird, um auszudrücken, dass es unterschiedliche Auffassungen oder Perspektiven gibt.
+</p>
+<p>
+	Gleiches gilt auch für Bilder - Ansichtssachen eben!
+</p>
+
+<section class="river">
+	{% set images = gallery.images | shuffle | limit(15) %}
+
+	{%- for image in images -%}
+	<article tabindex="0"  id="{{ image.name | trimExtension | slugify }}" style="--width:{{ image.size.width }}; --height:{{ image.size.height }};">
+      <picture>
+        {% picture image.src, image.description, "40vw" %}
+      </picture>
+      <aside>
+        <p>{{ image.description }}</p>
+        <p>
+          {{ image.photo.focalLength }}mm {{ image.photo.exposureNumerator }}/{{ image.photo.exposureDenominator }} F{{ image.photo.fNumber.toFixed(1) }} ISO {{ image.photo.iso }}
+        </p>
+      </aside>
+
+      <figure>
+		{% if not loop.first %}
+			<a href="#{{images[loop.index0-1].name | trimExtension | slugify }}" title="previous">&lt;</a>
+		{% endif %}
+        <a href="#!" title="close">close</a>
+        {% picture image.src, image.description, "(min-aspect-ratio: {{ image.size.width }}/{{ image.size.height }}) calc( ({{ image.size.width }}/{{ image.size.height }}) * 100vh  ), 100vw" %}
+		{% if not loop.last %}
+			<a href="#{{images[loop.index0+1].name | trimExtension | slugify }}" title="next">&gt;</a>
+		{% endif %}
+      </figure>
+    </article>
+	{%- endfor -%}
+</section>
+
+{# <section id="deck">
 	{% set years = collections.years | eleventyNavigation %}
 	{%- for entry in years %}
 	<article>
@@ -44,4 +82,4 @@ layout: base
 		<h3>Ende!</h3>
 	</div>
 	</article>
-</section>
+</section> #}
