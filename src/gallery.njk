@@ -33,13 +33,13 @@ permalink: "{{ year | slug }}/"
 
   <article>
     <div class="devider">
-      <h3>Ende!</h3>
+      <a href="#">zum Anfang</a>
       <nav aria-labelledby="pagination">
-        {% if pagination.href.previous %}<a href="{{ pagination.href.previous }}">Previous</a>{% endif %}
-      {%- for pageEntry in pagination.pages %}
-          <a href="{{ pagination.hrefs[ loop.index0 ] }}"{% if page.url == pagination.hrefs[ loop.index0 ] %} aria-current="page"{% endif %}>Page {{ loop.index }}</a>
-      {%- endfor %}
-          {% if pagination.href.next %}<a href="{{ pagination.href.next }}">Next</a>{% endif %}
+        {% if pagination.href.previous %}<a href="{{ pagination.href.previous }}">⇦</a>{% endif %}
+        {%- for pageEntry in pagination.pages %}
+            <a href="{{ pagination.hrefs[ loop.index0 ] }}"{% if page.url == pagination.hrefs[ loop.index0 ] %} aria-current="page"{% endif %}>{{ pageEntry }}</a>
+        {%- endfor %}
+        {% if pagination.href.next %}<a href="{{ pagination.href.next }}">⇨</a>{% endif %}
       </nav>
     </div>
   </article>
