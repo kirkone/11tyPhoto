@@ -1,5 +1,7 @@
 const image = require("@11ty/eleventy-img");
 const eleventySass = require("eleventy-sass");
+const postcss = require("postcss");
+const autoprefixer = require("autoprefixer");
 const eleventyNavigationPlugin = require("@11ty/eleventy-navigation");
 const sharp = require("sharp");
 
@@ -148,7 +150,13 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addNunjucksAsyncShortcode("placeholder", placeholderShortcode);
   eleventyConfig.addNunjucksAsyncShortcode("picture", pictureShortcode);
   eleventyConfig.addNunjucksAsyncShortcode("picturezoom", pictureZoomShortcode);
-  eleventyConfig.addPlugin(eleventySass);
+  eleventyConfig.addPlugin(eleventySass, {
+    sass: {
+      style: "expanded",
+      sourceMap: false
+    },
+    postcss: postcss([autoprefixer])
+  });
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
 
   eleventyConfig.addNunjucksFilter(

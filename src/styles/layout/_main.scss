@@ -1,5 +1,7 @@
 main {
   min-height: 100vh;
+  max-width: 1000px;
+  margin: 0 auto;
 
   > h1 {
     margin: 0 1rem 2rem 1rem;
@@ -20,7 +22,7 @@ main {
   
   > p{
     margin: 0 2rem 1rem 2rem;
-    font-size: 1em;
+    font-size: 0.9em;
     letter-spacing: 0.02em;
   }
 }

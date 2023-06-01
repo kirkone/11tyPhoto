@@ -1,5 +1,5 @@
 ---
-title: My collection of images through the time
+title: Ansichtssachen
 layout: base
 tags:
   - years
@@ -24,7 +24,7 @@ permalink: "{{ year | slug }}/"
           <aside>
               {{ image.photo.focalLength }}mm {{ image.photo.exposureNumerator }}/{{ image.photo.exposureDenominator }} F{{ image.photo.fNumber.toFixed(1) }} ISO {{ image.photo.iso }}
           </aside>
-          <a href="#{{ image.name | trimExtension | slugify }}">
+          <a href="#{{ image.name | trimExtension | slugify }}" title="{{image.name}}">
               {% picture image.src, image.description, "100vw, 100vh" %}
           </a>
       </div>
@@ -33,13 +33,13 @@ permalink: "{{ year | slug }}/"
 
   <article>
     <div class="devider">
-      <a href="#">zum Anfang</a>
+      <a href="#" title="zum Anfang">zum Anfang</a>
       <nav aria-labelledby="pagination">
-        {% if pagination.href.previous %}<a href="{{ pagination.href.previous }}">⇦</a>{% endif %}
+        {% if pagination.href.previous %}<a href="{{ pagination.href.previous }}" title="vorheriges Jahr">⇦</a>{% endif %}
         {%- for pageEntry in pagination.pages %}
-            <a href="{{ pagination.hrefs[ loop.index0 ] }}"{% if page.url == pagination.hrefs[ loop.index0 ] %} aria-current="page"{% endif %}>{{ pageEntry }}</a>
+            <a href="{{ pagination.hrefs[ loop.index0 ] }}"{% if page.url == pagination.hrefs[ loop.index0 ] %} aria-current="page"{% endif %} title="{{ pageEntry }}">{{ pageEntry }}</a>
         {%- endfor %}
-        {% if pagination.href.next %}<a href="{{ pagination.href.next }}">⇨</a>{% endif %}
+        {% if pagination.href.next %}<a href="{{ pagination.href.next }}" title="nächstes Jahr">⇨</a>{% endif %}
       </nav>
     </div>
   </article>
