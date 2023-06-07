@@ -17,18 +17,18 @@ body > a:first-child{
 header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  flex-wrap: wrap;
     
   background-color: hsl(var(--color-background-hsl));
 
   margin: 2rem 2rem 4rem 2rem;
+  letter-spacing: 0.1em;
 
   h2 {
     margin: 0;
-    margin-left: -0.28em;
-    font-size: 1.2em;
-    letter-spacing: 0.1em;
+    font-size: inherit;
     font-weight: 100;
+    white-space:nowrap;
 
     a {
       color: hsl(var(--color-dark-hsl));
@@ -38,7 +38,6 @@ header {
   a {
     color: hsl(var(--color-hsl) / 0.8);
     text-decoration: none;
-    padding: 0 0.25em;
     border-bottom: solid 1px transparent;
 
     &:hover, &.active {

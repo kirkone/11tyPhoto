@@ -3,7 +3,10 @@
 body {
     font-family: typography.$font;
     font-weight: 100;
-    font-size: 1.6rem;
+    // This is from: https://fluid-typography.netlify.app/
+    // Minimum size 1.1rem at a viewport width of 700px.
+    // Maximum size 2rem at a viewport width of 1000px.
+    font-size: clamp(1.1rem, 4.8vw - 1rem, 2rem);
     margin: 0;
   
     background-color: hsl(var(--color-background-hsl));

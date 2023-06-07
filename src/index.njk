@@ -1,16 +1,16 @@
 ---
-title: Ansichtssachen
+title: Ansichtssache
 tags:
 layout: base
 ---
 
-<h1>Ansichtssachen</h1>
+<h1>Ansichtssache</h1>
 <p>
 	“<cite>Ansichtssache</cite>” bedeutet, dass die Bewertung einer Sache nicht auf objektiven Kriterien, sondern auf der eigenen Meinung oder Einschätzung beruht. <br>
 	Es ist ein Begriff, der oft verwendet wird, um auszudrücken, dass es unterschiedliche Auffassungen oder Perspektiven gibt.
 </p>
 <p>
-	Gleiches gilt auch für Bilder - Ansichtssachen eben!
+	Gleiches gilt auch für Bilder - Ansichtssache eben!
 </p>
 
 <section class="river">
@@ -18,7 +18,7 @@ layout: base
 
 	{%- for image in images -%}
 	<article tabindex="0"  id="{{ image.name | trimExtension | slugify }}" style="--width:{{ image.size.width }}; --height:{{ image.size.height }};">
-        {% picture image.src, image.description, "40vw" %}
+        {% picture image.src, image.description, "(min-width: 600px) 600px, 100vw" %}
       <aside>
         <p>{{ image.description }}</p>
         <p>

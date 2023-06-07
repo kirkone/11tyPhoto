@@ -16,10 +16,9 @@
         justify-content: center;
         align-items: center;
         flex: none;
-
-        background-color: hsl(var(--color-background-hsl));
         
         align-items: flex-start;
+        background-color: hsl(var(--color-background-hsl));
 
         -webkit-tap-highlight-color: transparent;
 
@@ -45,7 +44,9 @@
             max-height: 200vh; 
             aspect-ratio: var(--width) / calc(var(--height) * 2);
             display: inline-block;
-            padding-top: 2rem;
+            padding-top: 1em;
+
+            background-color: hsl(var(--color-background-hsl));
 
             img {
                 z-index: 2;
@@ -66,10 +67,10 @@
                 position: sticky;
                 left: 0;
                 top: 0;
-                height: 2rem;
-                line-height: 2rem;
-                margin-top: -2rem;
-                font-size: 1.1rem;
+                height: 1em;
+                line-height: 1em;
+                margin-top: -1em;
+                font-size: .8em;
                 text-align: center;
             }
 

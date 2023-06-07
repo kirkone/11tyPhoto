@@ -25,7 +25,7 @@ permalink: "{{ year | slug }}/"
               {{ image.photo.focalLength }}mm {{ image.photo.exposureNumerator }}/{{ image.photo.exposureDenominator }} F{{ image.photo.fNumber.toFixed(1) }} ISO {{ image.photo.iso }}
           </aside>
           <a href="#{{ image.name | trimExtension | slugify }}" title="{{image.name}}">
-              {% picture image.src, image.description, "100vw, 100vh" %}
+              {% picture image.src, image.description, "(min-width: 1000px) 1000px, 100vw" %}
           </a>
       </div>
   </article>

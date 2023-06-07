@@ -5,6 +5,18 @@ const autoprefixer = require("autoprefixer");
 const eleventyNavigationPlugin = require("@11ty/eleventy-navigation");
 const sharp = require("sharp");
 
+const widths = [
+  150,
+  300,
+  600,
+  1000,
+  1200,
+  1600,
+  2000,
+  2500,
+  3200
+];
+
 async function getAverageColor(image) {
   // Resize to one pixel and get raw buffer
   const buffer = await image.clone().resize(1,1).raw().toBuffer();
@@ -19,14 +31,7 @@ async function getAverageColor(image) {
 async function pictureShortcode(src, alt, sizes = "100vw") {
   let metadata = await image(src, {
     widths: [
-      160,
-      320,
-      640,
-      1024,
-      1280,
-      1920,
-      2560,
-      3840,
+      ...widths,
       "auto"
     ],
     formats: ["avif", "webp", "jpeg"],
@@ -59,14 +64,7 @@ async function pictureShortcode(src, alt, sizes = "100vw") {
 async function pictureSmallShortcode(src, alt) {
   let metadata = await image(src, {
     widths: [
-      160,
-      320,
-      640,
-      1024,
-      1280,
-      1920,
-      2560,
-      3840,
+      ...widths,
       "auto"
     ],
     formats: ["avif", "webp", "jpeg"],
