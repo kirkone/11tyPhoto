@@ -9,12 +9,7 @@ const widths = [
   150,
   300,
   600,
-  1000,
-  1200,
-  1600,
-  2000,
-  2500,
-  3200
+  1000
 ];
 
 async function getAverageColor(image) {
@@ -31,8 +26,7 @@ async function getAverageColor(image) {
 async function pictureShortcode(src, alt, sizes = "100vw") {
   let metadata = await image(src, {
     widths: [
-      ...widths,
-      "auto"
+      ...widths
     ],
     formats: ["avif", "webp", "jpeg"],
     outputDir: "./output/images/",

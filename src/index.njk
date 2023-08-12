@@ -4,7 +4,7 @@ tags:
 layout: base
 ---
 
-<h1>Ansichtssache</h1>
+<h1>Ansichtssachen</h1>
 <p>
 	“<cite>Ansichtssache</cite>” bedeutet, dass die Bewertung einer Sache nicht auf objektiven Kriterien, sondern auf der eigenen Meinung oder Einschätzung beruht. <br>
 	Es ist ein Begriff, der oft verwendet wird, um auszudrücken, dass es unterschiedliche Auffassungen oder Perspektiven gibt.
@@ -31,7 +31,7 @@ layout: base
 			<a href="#{{images[loop.index0-1].name | trimExtension | slugify }}" title="previous">&lt;</a>
 		{% endif %}
         <a href="#!" title="close">close</a>
-        {% picture image.src, image.description, "(min-aspect-ratio: {{ image.size.width }}/{{ image.size.height }}) calc( ({{ image.size.width }}/{{ image.size.height }}) * 100vh  ), 100vw" %}
+        {% picturezoom image.src, image.description, "100vw" %}
 		{% if not loop.last %}
 			<a href="#{{images[loop.index0+1].name | trimExtension | slugify }}" title="next">&gt;</a>
 		{% endif %}
